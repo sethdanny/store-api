@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
+const connectDB = require('./db/connect');
+
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
 
@@ -24,6 +26,7 @@ app.use(errorHandler);
 const start = async () => {
   try {
     // connectDB
+    await connectDB(process.env.MONGO_URI);
     app.listen(port, () => {
       console.log(`Server is listening on http://localhost:${port}`);
     });
