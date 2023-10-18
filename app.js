@@ -9,7 +9,7 @@ const errorHandler = require('./middleware/error-handler');
 
 const port = process.env.PORT || 5001;
 
-//routes
+// routes
 app.get('/', (req, res) => {
   res.send('<h1>Store API </h1> <ahref="/api/v1/products"> Products route</a>');
 });
@@ -21,6 +21,15 @@ app.use(morgan('dev'));
 app.use(notFoundMiddleware);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Server is listening on http://localhost:${port}`);
-});
+const start = async () => {
+  try {
+    // connectDB
+    app.listen(port, () => {
+      console.log(`Server is listening on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
